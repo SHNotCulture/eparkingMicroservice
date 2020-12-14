@@ -1,0 +1,59 @@
+html,body{
+	margin:0;
+	padding:0;
+}
+
+.myDate{
+	display: flex;
+	justify-content:space-around;
+	min-height:200px;
+}
+.all{
+	min-height:1200px;
+	margin:0;
+	padding:0;
+}
+.data1{
+	overflow: hidden;
+	margin-top:10px;
+	padding:20px;
+	position:relative;
+}
+.Num{
+	font-size:1.2em;
+	font-weight: bold;
+	position:absolute;
+	color:darkred;
+}
+.Num1{
+	top:80px;
+	left:110px;
+}
+.Num2{	
+	bottom:50px;
+	left:25px;
+}
+.Num3{
+	bottom:75px;
+	right:25px;
+}
+.Num4{
+	 bottom:50px;
+	 right:40px;
+ }
+
+
+/****/
+.pei{
+	display:flex;
+	justify-content: space-around;
+	min-height:300px;
+	overflow: hidden;
+}
+.conT{
+	width:500px;
+	margin-top:50px;
+}
+.conTdes{
+	display:flex;
+}

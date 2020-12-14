@@ -1,0 +1,106 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  jmx:
+    enabled: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    #测试服务器
+    url: jeparkingdbc:mysql://rm-wz9bf98f4c380z113.mysql.rds.aliyuncs.com:3306/eparking?autoReconnect=true&initialTimeout=3&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: eparking
+    password: ZnfHmYZJY9Qi80uv
+  redis:
+    host:  127.0.0.1
+    port: 6379
+    password:
+    timeout: 5000
+    jedis:
+      pool:
+        max-wait: 30000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-active: 200 #最大连接数
+        max-idle: 20 #最大空闲连接数
+        min-idle: 0  #最小空闲连接数
+
+  http:
+    multipart-maxFileSize: 10MB
+    multipart-maxRequestSize: 10MB
+  application:
+    name: eparkingCloud
+  security:
+    user:
+      name: admin
+      password: 123456
+  freemarker:
+    request-context-attribute: req  #req访问request
+  　suffix: .ftl  #后缀名
+eureka:
+  instance:
+    hostname: s2.eparking.top
+    instanceId: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 10    #配置续约更新时间
+    lease-expiration-duration-in-seconds: 10   #配置续约到期时间
+    #优先使用IP地址注册服务
+    #prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@s2.eparking.top:8085/eureka/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@s2.eparking.top:8086/eureka/eureka/
+      #defaultZone: http://47.112.10.215:8086/eureka/eureka/
+  feign:
+    httpclient:
+      enabled: true
+    hystrix:
+      enabled: true
+  hystrix:
+    shareSecurityContext: true
+    command:
+      default:
+        circuitBreaker:
+          sleepWindowInMilliseconds: 100000
+          forceClosed: true
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 600000
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+#pagehelper分页插件配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params:
+    count: countSql
+
+logging:
+  level:
+    com:
+      eparking:
+        dao: debug
+thread:
+  corePoolSize: 10
+  maxPoolSize: 200
+  queueCapacity: 10
+redis:
+  host:  127.0.0.1
+  port: 6379
+  password:
+  jedis:
+    pool:
+      max-idle:  -1
+      min-idle: 0
+      max-active:  -1
+      max-wait: -1
+  timeout: 0
+ump:
+  url: http://yun2.eparking.top:8087/eparkingUMPcloud/view/getScope
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 20000
+        readTimeout:  20000
